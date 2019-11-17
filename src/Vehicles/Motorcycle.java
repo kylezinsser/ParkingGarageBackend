@@ -12,7 +12,7 @@ public class Motorcycle extends Vehicle {
         compatibleSpots.add(ParkingSpot.SpotType.LARGE);
 
         vehicleId = UUID.randomUUID();
-        type = VehicleType.MOTORCYCLE;
+        vehicleType = VehicleType.MOTORCYCLE;
         consecutiveSpots = 1;
     }
 

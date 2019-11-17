@@ -11,7 +11,7 @@ public class Car extends Vehicle {
         compatibleSpots.add(ParkingSpot.SpotType.LARGE);
 
         vehicleId = UUID.randomUUID();
-        type = VehicleType.CAR;
+        vehicleType = VehicleType.CAR;
         consecutiveSpots = 1;
     }
 

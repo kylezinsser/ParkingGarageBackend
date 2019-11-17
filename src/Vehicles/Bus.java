@@ -10,7 +10,7 @@ public class Bus extends Vehicle {
         compatibleSpots.add(ParkingSpot.SpotType.LARGE);
 
         vehicleId = UUID.randomUUID();
-        type = VehicleType.BUS;
+        vehicleType = VehicleType.BUS;
         consecutiveSpots = 5;
     }
 

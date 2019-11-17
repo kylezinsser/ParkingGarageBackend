@@ -16,7 +16,7 @@ public abstract class Vehicle {
     }
 
     protected UUID vehicleId;
-    protected VehicleType type;
+    protected VehicleType vehicleType;
     protected int consecutiveSpots;
     protected List<ParkingSpot.SpotType> compatibleSpots = new ArrayList<ParkingSpot.SpotType>();
     protected List<ParkingSpot> occupiedSpots = new ArrayList<ParkingSpot>();
@@ -26,7 +26,7 @@ public abstract class Vehicle {
     }
 
     public VehicleType getVehicleType() {
-        return type;
+        return vehicleType;
     }
 
     public int getConsecutiveSpots() {

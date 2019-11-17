@@ -8,11 +8,11 @@ import java.util.Random;
 public class ParkingApplication {
     public static final int minNumOfFloors = 1;
     public static final int minNumOfRows = 4;
-    public static final int minRowLength = 15;
+    public static final int minRowLength = 16;
 
-    public static final int maxNumOfFloors = 10;
-    public static final int maxNumOfRows = 10;
-    public static final int maxRowLength = 40;
+    public static final int maxNumOfFloors = 8;
+    public static final int maxNumOfRows = 8;
+    public static final int maxRowLength = 32;
 
     public static int numOfFloors = 0;
     public static int numOfRows = 0;
