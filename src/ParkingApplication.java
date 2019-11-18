@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ParkingApplication {
+    // Included min and max dimensions for easy experimentation
     // Declaring minimum values for each garage dimension
     private static final int minNumOfFloors = 1;
     private static final int minNumOfRows = 4;
@@ -53,10 +54,11 @@ public class ParkingApplication {
         // Iterate through the queue and attempt to park each car
         System.out.println("Parking queue processing: ");
         for (Vehicle v: parkingQueue) {
-            // Using a substr of the vehicle ID to use as the "license" to avoid spamming console with long UUIDs
+            // Using a substr of the vehicle ID as the "license" to avoid spamming console with long UUIDs
             String license = String.valueOf(v.getVehicleId()).substring(0, 8);
             System.out.print(v.getVehicleType() + " #" + license + " has entered the garage");
 
+            // Attempt to park vehicle and print result
             boolean parked = myGarage.parkVehicle(v);
             if(parked) {
                 System.out.println(" and parked in slot" + (v.getConsecutiveSpots() > 1 ? "s: " : ": ") + v.getOccupiedSpotNames());
@@ -76,10 +78,11 @@ public class ParkingApplication {
                         waitingMotorCycles++;
                         break;
                 }
-
             }
         }
 
+        // Remainder is various print statements. These are just to give some sort of visual to what is happening.
+        // Print final output to console to check the layout
         System.out.println("\nFinal garage status (O = Open, X = Occupied): ");
         myGarage.printParkingStructure();
 

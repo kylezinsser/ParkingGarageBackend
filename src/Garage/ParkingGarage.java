@@ -1,19 +1,18 @@
 package Garage;
 
-import Vehicles.Vehicle;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ParkingGarage {
+    // Create a list of available spots
     private List<ParkingSpot> availableSpots;
+    // Create a list of occupied spots. May want to use a HashMap in the future to pair spot with its vehicle
     private List<ParkingSpot> occupiedSpots;
-//    public HashMap<ParkingSpot, Vehicle> occupiedSpots;
-
+    // List to contain floor objects
     private List<ParkingFloor> floors;
     private final int numOfFloors;
 
+    // Constructor just initializes private variables using passed values
     public ParkingGarage(int numOfFloors, int numOfRows, int rowLength) {
         this.numOfFloors = numOfFloors;
         this.floors = generateFloors(numOfFloors, numOfRows, rowLength);
@@ -21,6 +20,7 @@ public class ParkingGarage {
         this.occupiedSpots = new ArrayList<>();
     }
 
+    // We need to create a set of floors for each new ParkingGarage object
     private List<ParkingFloor> generateFloors(int numOfFloors, int numOfRows, int rowLength) {
         List<ParkingFloor> floors = new ArrayList<>();
         for(int i = 0; i < numOfFloors; i++) {
@@ -41,7 +41,7 @@ public class ParkingGarage {
                 List<ParkingSpot> spots = row.getSpots();
                 // Iterate through each spot per row
                 for (ParkingSpot spot : spots) {
-                    // if spot isOccupied==false it is available
+                    // if occupy status is false then it is available
                     if (!spot.getOccupyStatus()) {
                         available.add(spot);
                     }
@@ -51,26 +51,14 @@ public class ParkingGarage {
         return available;
     }
 
+    // Print commands are passed on to each floor
     public void printGarage() {
         for (ParkingFloor floor : floors) {
             floor.printFloor();
         }
     }
 
-//    public boolean parkVehicle(Vehicle v) {
-//        for (ParkingSpot spot : availableSpots) {
-//            if (v.getCompatibleSpots().contains(spot.getSpotType())) {
-//                spot.setOccupyStatus(true);
-//                v.getOccupiedSpots().add(spot);
-//
-//                occupiedSpots.add(spot);
-//                availableSpots.remove(spot);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-
+    // Basic getters and setters follow
     public List<ParkingSpot> getAvailableSpots() {
         return availableSpots;
     }
@@ -85,10 +73,6 @@ public class ParkingGarage {
 
     public void setOccupiedSpots(List<ParkingSpot> occupiedSpots) {
         this.occupiedSpots = occupiedSpots;
-    }
-
-    public List<ParkingFloor> getFloors() {
-        return floors;
     }
 
     public int getNumOfFloors() {

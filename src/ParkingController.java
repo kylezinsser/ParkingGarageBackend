@@ -17,6 +17,7 @@ class ParkingController {
     }
 
     boolean parkVehicle(Vehicle v) {
+        // First grab our available/occupied slots from our current garage object
         List<ParkingSpot> availableSpots = garage.getAvailableSpots();
         List<ParkingSpot> occupiedSpots = garage.getOccupiedSpots();
         int consecutiveSpots = v.getConsecutiveSpots();
@@ -38,7 +39,7 @@ class ParkingController {
             if (v.getCompatibleSpots().contains(spot.getSpotType())) {
                 potentialSpots.add(spot);
 
-                // Check if we have enough consecutive spots to park
+                // Check if we have enough consecutive spots to park. If so we have a valid place to park
                 if (potentialSpots.size() == consecutiveSpots) {
                     // For each spot candidate we have to update spot attributes
                     for (ParkingSpot s : potentialSpots) {
@@ -56,7 +57,6 @@ class ParkingController {
 
                     // Also update the vehicle spot list
                     v.setOccupiedSpots(potentialSpots);
-
                     return true;
                 }
             } else {
@@ -68,6 +68,7 @@ class ParkingController {
         return false;
     }
 
+    // Print command is passed on to the garage
     void printParkingStructure() {
         garage.printGarage();
     }

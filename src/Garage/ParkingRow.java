@@ -5,23 +5,25 @@ import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
+// Each row is the same length but can have a different mix of parking spot types
+// For simplicity we will have small=1, compact=2, and large=3 units in length
 public class ParkingRow {
-    // Each row is the same length but can have a different mix of parking spot types
-    // For simplicity we will have small=1, compact=2, and large=3 units in length
     private final int rowLength;
     private final int rowNumber;
-    public List<ParkingSpot> spots;
-    UUID rowId;
+    private List<ParkingSpot> spots;
+    private UUID rowId;
 
-    public ParkingRow(int rowNumber, int rowLength) {
-        rowId = UUID.randomUUID();
+    // Constructor just initializes private variables using passed values
+    ParkingRow(int rowNumber, int rowLength) {
+        this.rowId = UUID.randomUUID();
         this.rowNumber = rowNumber;
         this.rowLength = rowLength;
         this.spots = generateSpots(rowLength);
     }
 
+    // We need to create a set of spots for each new ParkingSpot object
     private List<ParkingSpot> generateSpots(int rowLength) {
-        List<ParkingSpot> spots = new ArrayList<ParkingSpot>();
+        List<ParkingSpot> spots = new ArrayList<>();
 
         Random random = new Random();
         int spotIndex = 0;
@@ -38,24 +40,25 @@ public class ParkingRow {
             // Make sure we don't exceed the remaining row length by taking the min of both values
             nextSlotLength = Math.min(nextSlotLength, rowLength);
 
+            // Instantiate new ParkingSpot object and add it to the list
             spots.add(new ParkingSpot(rowId, nextSlotLength, spotIndex));
             rowLength -= nextSlotLength;
             spotIndex++;
         }
-
         return spots;
     }
 
-    public List<ParkingSpot> getSpots() {
-        return spots;
-    }
-
+    // Print commands are passed on to each spot
     void printRow() {
         for (ParkingSpot spot : spots) {
             spot.printSpot();
-//            System.out.print(" ");
         }
         System.out.println();
+    }
+
+    // Basic getters follow
+    List<ParkingSpot> getSpots() {
+        return spots;
     }
 
     public int getRowLength() {
