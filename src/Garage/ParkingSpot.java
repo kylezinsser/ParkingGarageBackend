@@ -14,10 +14,12 @@ public class ParkingSpot {
     private SpotType spotType;
     private boolean isOccupied;
     private UUID parentRow;
+    private int spotIndex;
 
-    ParkingSpot(UUID parentRow, int spotLength) {
+    ParkingSpot(UUID parentRow, int spotLength, int spotIndex) {
         // When we're checking available slots we may need an association with the parent row to check adjacent spots
         this.parentRow = parentRow;
+        this.spotIndex = spotIndex;
 
         // You could match the length to type with SpotType.values()[spotLength-1] but doing so creates a
         // new array object each time which seems excessive. We'll go with a hardcoded switch for this exercise.
@@ -45,7 +47,13 @@ public class ParkingSpot {
         return parentRow;
     }
 
-    public boolean getOccupyStatus() {
+    public String getSpotLookup() {
+        // Lookup name is for checking that buses are parked in the same row and in consecutive spots
+        // TODO: make lookup name more readable
+        return String.valueOf(this.parentRow).substring(0, 4) + "_slot#" + this.spotIndex;
+    }
+
+    boolean getOccupyStatus() {
         return isOccupied;
     }
 

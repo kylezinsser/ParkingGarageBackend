@@ -25,13 +25,13 @@ public class ParkingApplication {
     // For this exercise we will have the main method perform a series of garage functions
     // In a complete application we'd basically have a running service listening for user input instead
     public static void main(String[] args) {
-        // Create a garage object with our random dimensions
-        ParkingGarage garage = new ParkingGarage(numOfFloors, numOfRows, rowLength);
+        // Create a parking controller with the random dimensions we've assigned
+        ParkingController myGarage = new ParkingController(numOfFloors, numOfRows, rowLength);
 
         // Print the initial layout of the garage to the console
         // Open spaces represented by "O"s within square brackets that vary in length based on small, compact, or large
         System.out.println("\nInitial garage status (O = Open, X = Occupied): ");
-        garage.printGarage();
+        myGarage.printParkingStructure();
 
         // We'll generate a random number of cars to try parking
         int queueLength = random.nextInt((numOfFloors * numOfRows * rowLength) / 2) + 40;
@@ -44,8 +44,11 @@ public class ParkingApplication {
         }
 
         // Keep track of some simple counters to display at the end
-        int parkedCars = 0;
+        int parkedVehicles = 0;
+        int waitingVehicles = 0;
+        int waitingMotorCycles = 0;
         int waitingCars = 0;
+        int waitingBuses = 0;
 
         // Iterate through the queue and attempt to park each car
         System.out.println("Parking queue processing: ");
@@ -54,24 +57,46 @@ public class ParkingApplication {
             String license = String.valueOf(v.getVehicleId()).substring(0, 8);
             System.out.print(v.getVehicleType() + " #" + license + " has entered the garage");
 
-            boolean parked = garage.parkVehicle(v);
+            boolean parked = myGarage.parkVehicle(v);
             if(parked) {
-                System.out.println(" and parked in slot(s) " + v.getOccupiedSpots());
-                parkedCars++;
+                System.out.println(" and parked in slot" + (v.getConsecutiveSpots() > 1 ? "s: " : ": ") + v.getOccupiedSpotNames());
+                parkedVehicles++;
             } else {
                 System.out.println(" and is waiting in the queue.");
-                waitingCars++;
+                waitingVehicles++;
+                switch (v.getVehicleType()) {
+                    case BUS:
+                        waitingBuses++;
+                        break;
+                    case CAR:
+                        waitingCars++;
+                        break;
+                    case MOTORCYCLE:
+                    default:
+                        waitingMotorCycles++;
+                        break;
+                }
+
             }
         }
 
         System.out.println("\nFinal garage status (O = Open, X = Occupied): ");
-        garage.printGarage();
+        myGarage.printParkingStructure();
 
         // Print out garage dimensions for the user
         System.out.println("Garage has " + numOfFloors + " floors, with " + numOfRows + " rows per floor and " + rowLength + " units per row.");
 
         // Print some parking success stats for the user
-        System.out.print(parkedCars + " of " + queueLength + " vehicles were successfully parked! ");
-        System.out.println(waitingCars > 0 ? (waitingCars + " are still waiting in the queue.") : "");
+        System.out.println(parkedVehicles + " of " + queueLength + " vehicles were successfully parked! \n");
+        if (waitingVehicles > 0) {
+            System.out.println((waitingVehicles + " are still waiting in the queue."));
+            if(waitingMotorCycles > 0)
+                System.out.print((waitingMotorCycles + " of them are Motorcycles. "));
+            if(waitingCars > 0)
+                System.out.print((waitingCars + " of them are Cars. "));
+            if(waitingBuses > 0)
+                System.out.print((waitingBuses + " of them are Buses. "));
+            System.out.println();
+        }
     }
 }

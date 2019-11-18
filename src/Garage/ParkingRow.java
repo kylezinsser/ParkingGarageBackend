@@ -24,6 +24,7 @@ public class ParkingRow {
         List<ParkingSpot> spots = new ArrayList<ParkingSpot>();
 
         Random random = new Random();
+        int spotIndex = 0;
         while(rowLength > 0) {
             // Get a random length between 1-3 (inclusive)
             int nextSlotLength = random.nextInt(3) + 1;
@@ -37,8 +38,9 @@ public class ParkingRow {
             // Make sure we don't exceed the remaining row length by taking the min of both values
             nextSlotLength = Math.min(nextSlotLength, rowLength);
 
-            spots.add(new ParkingSpot(rowId, nextSlotLength));
+            spots.add(new ParkingSpot(rowId, nextSlotLength, spotIndex));
             rowLength -= nextSlotLength;
+            spotIndex++;
         }
 
         return spots;

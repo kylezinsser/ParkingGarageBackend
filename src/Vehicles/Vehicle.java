@@ -37,8 +37,20 @@ public abstract class Vehicle {
         return compatibleSpots;
     }
 
+    public String getOccupiedSpotNames() {
+        StringBuilder s = new StringBuilder();
+        for (ParkingSpot spot : occupiedSpots) {
+            s.append(spot.getSpotLookup()).append(", ");
+        }
+        return s.toString();
+    }
+
     public List<ParkingSpot> getOccupiedSpots() {
         return occupiedSpots;
+    }
+
+    public void setOccupiedSpots(List<ParkingSpot> occupiedSpots) {
+        this.occupiedSpots = occupiedSpots;
     }
 
     public static Vehicle getRandomVehicle() {
