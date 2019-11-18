@@ -39,11 +39,11 @@ public class ParkingFloor {
 
     void printFloor() {
         String floorDivider = String.join("", Collections.nCopies(rowLength*2, "="));
-        System.out.println(floorDivider + " " + floorLevel);
+        System.out.println(floorDivider + " Start Floor " + floorLevel);
         for (ParkingRow row : rows) {
             row.printRow();
         }
-        System.out.println(floorDivider + " " + floorLevel);
+        System.out.println(floorDivider + " End Floor " + floorLevel);
         System.out.println("");
     }
 }
