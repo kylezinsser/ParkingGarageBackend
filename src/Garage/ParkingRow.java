@@ -3,23 +3,25 @@ package Garage;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 public class ParkingRow {
     // Each row is the same length but can have a different mix of parking spot types
     // For simplicity we will have small=1, compact=2, and large=3 units in length
     private final int rowLength;
+    private final int rowNumber;
     public List<ParkingSpot> spots;
+    UUID rowId;
 
-    public ParkingRow(int rowLength) {
+    public ParkingRow(int rowNumber, int rowLength) {
+        rowId = UUID.randomUUID();
+        this.rowNumber = rowNumber;
         this.rowLength = rowLength;
         this.spots = generateSpots(rowLength);
     }
 
     private List<ParkingSpot> generateSpots(int rowLength) {
         List<ParkingSpot> spots = new ArrayList<ParkingSpot>();
-//        for(int i = 0; i < rowLength; i++) {
-//            rows.add(new ParkingSpot());
-//        }
 
         Random random = new Random();
         while(rowLength > 0) {
@@ -35,21 +37,30 @@ public class ParkingRow {
             // Make sure we don't exceed the remaining row length by taking the min of both values
             nextSlotLength = Math.min(nextSlotLength, rowLength);
 
-            spots.add(new ParkingSpot(nextSlotLength));
+            spots.add(new ParkingSpot(rowId, nextSlotLength));
             rowLength -= nextSlotLength;
         }
 
-        int i = 0;
-        for(ParkingSpot spot : spots) {
-            System.out.print(spot.getSpotType());
-            if(i++ == spots.size() - 1) {
-                System.out.println("");
-            } else {
-                System.out.print(" - ");
-            }
-        }
-        System.out.println("----------------------------------------------");
-
         return spots;
+    }
+
+    public List<ParkingSpot> getSpots() {
+        return spots;
+    }
+
+    void printRow() {
+        for (ParkingSpot spot : spots) {
+            spot.printSpot();
+//            System.out.print(" ");
+        }
+        System.out.println();
+    }
+
+    public int getRowLength() {
+        return rowLength;
+    }
+
+    public int getRowNumber() {
+        return rowNumber;
     }
 }

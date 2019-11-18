@@ -15,11 +15,11 @@ public abstract class Vehicle {
         BUS
     }
 
-    protected UUID vehicleId;
-    protected VehicleType vehicleType;
-    protected int consecutiveSpots;
-    protected List<ParkingSpot.SpotType> compatibleSpots = new ArrayList<ParkingSpot.SpotType>();
-    protected List<ParkingSpot> occupiedSpots = new ArrayList<ParkingSpot>();
+    UUID vehicleId;
+    VehicleType vehicleType;
+    int consecutiveSpots;
+    List<ParkingSpot.SpotType> compatibleSpots = new ArrayList<>();
+    private List<ParkingSpot> occupiedSpots = new ArrayList<>();
 
     public UUID getVehicleId() {
         return vehicleId;

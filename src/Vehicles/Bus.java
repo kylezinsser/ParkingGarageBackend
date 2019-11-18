@@ -4,9 +4,9 @@ import Garage.ParkingSpot;
 
 import java.util.UUID;
 
-public class Bus extends Vehicle {
+class Bus extends Vehicle {
 
-    public Bus() {
+    Bus() {
         compatibleSpots.add(ParkingSpot.SpotType.LARGE);
 
         vehicleId = UUID.randomUUID();

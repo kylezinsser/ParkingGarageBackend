@@ -4,9 +4,9 @@ import Garage.ParkingSpot;
 
 import java.util.UUID;
 
-public class Car extends Vehicle {
+class Car extends Vehicle {
 
-    public Car() {
+    Car() {
         compatibleSpots.add(ParkingSpot.SpotType.COMPACT);
         compatibleSpots.add(ParkingSpot.SpotType.LARGE);
 
